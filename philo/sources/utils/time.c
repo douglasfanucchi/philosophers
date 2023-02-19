@@ -20,6 +20,11 @@ time_t	get_timestamp(void)
 	return (tv.tv_sec * 1000);
 }
 
+time_t	get_current_timestamp(t_table table)
+{
+	return (get_timestamp() - table.started_time);
+}
+
 time_t	to_microsec(time_t ms)
 {
 	return (ms * 1000);
