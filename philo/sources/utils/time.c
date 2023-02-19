@@ -20,7 +20,7 @@ time_t	get_timestamp(void)
 	return (tv.tv_sec * 1000);
 }
 
-time_t	get_current_timestamp(t_table table)
+time_t	get_time(t_table table)
 {
 	return (get_timestamp() - table.started_time);
 }
