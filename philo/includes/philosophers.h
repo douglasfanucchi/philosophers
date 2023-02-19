@@ -44,5 +44,7 @@ time_t	get_timestamp(void);
 time_t	to_microsec(time_t ms);
 time_t	get_time(t_table table);
 long	ft_atoi(const char *nptr);
+void	delete_philo(t_philo *philo);
+t_philo	*new_philo(int pos, pthread_mutex_t *l_fork, pthread_mutex_t *r_fork);
 
 #endif
