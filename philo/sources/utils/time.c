@@ -17,10 +17,10 @@ time_t	get_timestamp(void)
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	return (tv.tv_sec);
+	return (tv.tv_sec * 1000);
 }
 
-time_t	to_microsec(time_t sec)
+time_t	to_microsec(time_t ms)
 {
-	return (sec * 1000000);
+	return (ms * 1000);
 }

@@ -39,6 +39,6 @@ typedef struct s_table {
 }	t_table;
 
 time_t	get_timestamp(void);
-time_t	to_microsec(time_t sec);
+time_t	to_microsec(time_t ms);
 
 #endif
