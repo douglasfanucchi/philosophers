@@ -19,3 +19,8 @@ time_t	get_timestamp(void)
 	gettimeofday(&tv, NULL);
 	return (tv.tv_sec);
 }
+
+time_t	to_microsec(time_t sec)
+{
+	return (sec * 1000000);
+}
