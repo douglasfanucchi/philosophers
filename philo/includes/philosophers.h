@@ -38,4 +38,6 @@ typedef struct s_table {
 	time_t	time_to_think;
 }	t_table;
 
+time_t	get_timestamp(void);
+
 #endif
