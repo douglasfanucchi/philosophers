@@ -18,4 +18,23 @@
 # include <stdlib.h>
 # include <sys/time.h>
 
+enum e_philo_state {
+	EATING,
+	SLEEPING,
+	THINKING
+};
+
+typedef struct s_philo {
+	int				pos;
+	int				state;
+	pthread_mutex_t	**forks;
+}	t_philo;
+
+typedef struct s_table {
+	t_philo		**philosophers;
+	suseconds_t	time_to_eat;
+	suseconds_t	time_to_sleep;
+	suseconds_t	time_to_think;
+}	t_table;
+
 #endif
