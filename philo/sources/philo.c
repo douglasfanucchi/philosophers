@@ -18,15 +18,15 @@ void	delete_philo(t_philo *philo)
 	free(philo);
 }
 
-t_philo	*new_philo(int pos, pthread_mutex_t *l_fork, pthread_mutex_t *r_fork)
+t_philo	*new_philo(int pos, t_fork *left_fork, t_fork *right_fork)
 {
 	t_philo	*philo;
 
 	philo = malloc(sizeof(t_philo));
-	philo->forks = malloc(sizeof(pthread_mutex_t) * 2);
+	philo->forks = malloc(sizeof(t_fork) * 2);
 	philo->pos = pos;
-	philo->forks[0] = l_fork;
-	philo->forks[1] = r_fork;
+	philo->forks[0] = left_fork;
+	philo->forks[1] = right_fork;
 	philo->state = -1;
 	return (philo);
 }

@@ -24,10 +24,12 @@ enum e_philo_state {
 	THINKING
 };
 
+typedef pthread_mutex_t	t_fork;
+
 typedef struct s_philo {
-	int				pos;
-	int				state;
-	pthread_mutex_t	**forks;
+	int		pos;
+	int		state;
+	t_fork	**forks;
 }	t_philo;
 
 typedef struct s_table {
@@ -45,6 +47,6 @@ time_t	to_microsec(time_t ms);
 time_t	get_time(t_table table);
 long	ft_atoi(const char *nptr);
 void	delete_philo(t_philo *philo);
-t_philo	*new_philo(int pos, pthread_mutex_t *l_fork, pthread_mutex_t *r_fork);
+t_philo	*new_philo(int pos, t_fork *left_fork, t_fork *right_fork);
 
 #endif
