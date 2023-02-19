@@ -1,7 +1,7 @@
 NAME=philo
 CC=cc
 FLAGS=-Wall -Wextra -Werror
-SRC:=philosophers.c utils/time.c
+SRC:=philosophers.c utils/time.c utils/atoi.c
 SRC:=$(addprefix sources/, $(SRC))
 OBJS=$(SRC:.c=.o)
 LIBS=-lpthread

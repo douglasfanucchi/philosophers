@@ -42,5 +42,6 @@ typedef struct s_table {
 time_t	get_timestamp(void);
 time_t	to_microsec(time_t ms);
 time_t	get_time(t_table table);
+long	ft_atoi(const char *nptr);
 
 #endif
