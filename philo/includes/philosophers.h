@@ -32,6 +32,7 @@ typedef struct s_philo {
 
 typedef struct s_table {
 	t_philo	**philosophers;
+	time_t	started_time;
 	time_t	time_to_eat;
 	time_t	time_to_sleep;
 	time_t	time_to_think;
