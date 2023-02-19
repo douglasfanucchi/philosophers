@@ -27,9 +27,10 @@ enum e_philo_state {
 typedef pthread_mutex_t	t_fork;
 
 typedef struct s_philo {
-	int		pos;
-	int		state;
-	t_fork	**forks;
+	int			pos;
+	int			state;
+	t_fork		**forks;
+	pthread_t	thread;
 }	t_philo;
 
 typedef struct s_table {

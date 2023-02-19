@@ -12,6 +12,14 @@
 
 #include <philosophers.h>
 
+static void	*routine(void * arg)
+{
+	t_philo	*philo;
+
+	philo = arg;
+	return (philo);
+}
+
 void	delete_philo(t_philo *philo)
 {
 	free(philo->forks);
@@ -28,5 +36,6 @@ t_philo	*new_philo(int pos, t_fork *left_fork, t_fork *right_fork)
 	philo->forks[0] = left_fork;
 	philo->forks[1] = right_fork;
 	philo->state = -1;
+	pthread_create(&philo->thread, NULL, routine, philo);
 	return (philo);
 }
