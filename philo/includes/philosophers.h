@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <unistd.h>
 
 enum e_philo_state {
 	EATING,
@@ -27,10 +28,11 @@ enum e_philo_state {
 typedef pthread_mutex_t	t_fork;
 
 typedef struct s_philo {
-	int			pos;
-	int			state;
-	t_fork		**forks;
-	pthread_t	thread;
+	int				pos;
+	int				state;
+	t_fork			**forks;
+	pthread_t		thread;
+	struct s_table	*table;
 }	t_philo;
 
 typedef struct s_table {
@@ -38,7 +40,6 @@ typedef struct s_table {
 	time_t	started_time;
 	time_t	time_to_eat;
 	time_t	time_to_sleep;
-	time_t	time_to_think;
 	time_t	time_to_die;
 	int		meals_count;
 }	t_table;
