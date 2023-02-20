@@ -37,6 +37,7 @@ typedef struct s_philo {
 }	t_philo;
 
 typedef struct s_table {
+	char	is_over;
 	t_philo	**philosophers;
 	time_t	started_time;
 	time_t	time_to_eat;
