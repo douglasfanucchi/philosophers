@@ -33,6 +33,7 @@ typedef struct s_philo {
 	t_fork			**forks;
 	pthread_t		thread;
 	struct s_table	*table;
+	time_t			last_meal;
 }	t_philo;
 
 typedef struct s_table {
