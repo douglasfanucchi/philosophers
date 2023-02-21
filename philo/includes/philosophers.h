@@ -41,6 +41,7 @@ typedef struct s_philo {
 	t_last_meal		last_meal;
 	void			*(*routine)(void *arg);
 	int				meals_count;
+	int				current_meal;
 	time_t			time_to_die;
 	time_t			time_to_eat;
 	time_t			time_to_sleep;
@@ -51,7 +52,6 @@ typedef struct s_table {
 	size_t	philo_count;
 	t_philo	**philosophers;
 	time_t	started_time;
-	int		meals_count;
 }	t_table;
 
 time_t	get_timestamp(void);
