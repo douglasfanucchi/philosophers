@@ -40,6 +40,7 @@ typedef struct s_philo {
 	struct s_table	*table;
 	t_last_meal		last_meal;
 	void			*(*routine)(void *arg);
+	int				meals_count;
 }	t_philo;
 
 typedef struct s_table {

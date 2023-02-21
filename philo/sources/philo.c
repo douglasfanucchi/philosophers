@@ -37,6 +37,7 @@ t_philo	*new_philo(int pos, t_fork *left_fork, t_fork *right_fork)
 	philo->forks[0] = left_fork;
 	philo->forks[1] = right_fork;
 	philo->state = -1;
+	philo->meals_count = -1;
 	philo->routine = routine;
 	pthread_mutex_init(&philo->last_meal.mutex, NULL);
 	return (philo);
