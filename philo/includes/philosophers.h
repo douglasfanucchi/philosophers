@@ -39,6 +39,7 @@ typedef struct s_philo {
 	pthread_t		thread;
 	struct s_table	*table;
 	t_last_meal		last_meal;
+	void			*(*routine)(void *arg);
 }	t_philo;
 
 typedef struct s_table {
