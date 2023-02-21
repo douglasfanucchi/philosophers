@@ -27,13 +27,18 @@ enum e_philo_state {
 
 typedef pthread_mutex_t	t_fork;
 
+typedef struct s_last_meal {
+	time_t			time;
+	pthread_mutex_t	mutex;
+}	t_last_meal;
+
 typedef struct s_philo {
 	int				pos;
 	int				state;
 	t_fork			**forks;
 	pthread_t		thread;
 	struct s_table	*table;
-	time_t			last_meal;
+	t_last_meal		last_meal;
 }	t_philo;
 
 typedef struct s_table {

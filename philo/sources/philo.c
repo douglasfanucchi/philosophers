@@ -12,7 +12,7 @@
 
 #include <philosophers.h>
 
-static void	*routine(void * arg)
+static void	*routine(void *arg)
 {
 	t_philo	*philo;
 
@@ -22,6 +22,7 @@ static void	*routine(void * arg)
 
 void	delete_philo(t_philo *philo)
 {
+	pthread_mutex_destroy(&philo->last_meal.mutex);
 	free(philo->forks);
 	free(philo);
 }
@@ -36,6 +37,6 @@ t_philo	*new_philo(int pos, t_fork *left_fork, t_fork *right_fork)
 	philo->forks[0] = left_fork;
 	philo->forks[1] = right_fork;
 	philo->state = -1;
-	pthread_create(&philo->thread, NULL, routine, philo);
+	pthread_mutex_init(&philo->last_meal.mutex, NULL);
 	return (philo);
 }
