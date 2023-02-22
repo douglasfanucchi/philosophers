@@ -27,6 +27,14 @@ void	delete_philo(t_philo *philo)
 	free(philo);
 }
 
+void	set_times(t_philo *philo, time_t time_to_die, time_t time_to_eat,
+		time_t time_to_sleep)
+{
+	philo->time_to_die = time_to_die;
+	philo->time_to_eat = time_to_eat;
+	philo->time_to_sleep = time_to_sleep;
+}
+
 t_philo	*new_philo(int pos, t_fork *left_fork, t_fork *right_fork)
 {
 	t_philo	*philo;
@@ -38,6 +46,7 @@ t_philo	*new_philo(int pos, t_fork *left_fork, t_fork *right_fork)
 	philo->forks[1] = right_fork;
 	philo->state = -1;
 	philo->meals_count = -1;
+	philo->current_meal = 0;
 	philo->routine = routine;
 	pthread_mutex_init(&philo->last_meal.mutex, NULL);
 	return (philo);

@@ -52,6 +52,7 @@ typedef struct s_table {
 	size_t	philo_count;
 	t_philo	**philosophers;
 	time_t	started_time;
+	t_fork	**forks;
 }	t_table;
 
 time_t	get_timestamp(void);
@@ -60,5 +61,9 @@ time_t	get_time(t_table table);
 long	ft_atoi(const char *nptr);
 void	delete_philo(t_philo *philo);
 t_philo	*new_philo(int pos, t_fork *left_fork, t_fork *right_fork);
+void	serve_table(t_table *table, char **args);
+void	clean_table(t_table *table);
+void	set_times(t_philo *philo, time_t time_to_die, time_t time_to_eat,
+			time_t time_to_sleep);
 
 #endif
