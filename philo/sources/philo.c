@@ -14,12 +14,9 @@
 
 static void	initial_state(t_philo *philo)
 {
-	set_last_meal_time(&philo->last_meal, get_time(*philo->table));
+	philo->last_meal = get_time(*philo->table);
 	if (philo->pos % 2 == 0)
-	{
-		change_state(philo, THINKING);
-		return ;
-	}
+		usleep(to_microsec(philo->time_to_eat));
 	change_state(philo, EATING);
 }
 
@@ -33,9 +30,7 @@ static void	*routine(void *arg)
 	{
 		if (philo->state == EATING)
 		{
-			pthread_mutex_lock(&philo->current_meal_mutex);
 			philo->current_meal += 1;
-			pthread_mutex_unlock(&philo->current_meal_mutex);
 			change_state(philo, SLEEPING);
 		}
 		else if (philo->state == SLEEPING)
@@ -48,7 +43,6 @@ static void	*routine(void *arg)
 
 void	delete_philo(t_philo *philo)
 {
-	pthread_mutex_destroy(&philo->last_meal.mutex);
 	free(philo->forks);
 	free(philo);
 }
@@ -74,6 +68,6 @@ t_philo	*new_philo(int pos, t_fork *left_fork, t_fork *right_fork)
 	philo->meals_count = -1;
 	philo->current_meal = 0;
 	philo->routine = routine;
-	pthread_mutex_init(&philo->last_meal.mutex, NULL);
+	philo->last_meal = 0;
 	return (philo);
 }

@@ -33,7 +33,7 @@ void	change_state(t_philo *philo, int state)
 		print_has_taken_fork(philo);
 		pthread_mutex_lock(philo->forks[1]);
 		print_has_taken_fork(philo);
-		set_last_meal_time(&philo->last_meal, get_time(*philo->table));
+		philo->last_meal = get_time(*philo->table);
 		philo->state = EATING;
 		print_state(philo, "is eating");
 		usleep(to_microsec(philo->time_to_eat));

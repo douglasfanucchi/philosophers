@@ -29,22 +29,16 @@ typedef pthread_mutex_t	t_fork;
 
 typedef pthread_mutex_t	t_mutex;
 
-typedef struct s_last_meal {
-	time_t			time;
-	pthread_mutex_t	mutex;
-}	t_last_meal;
-
 typedef struct s_philo {
 	int				pos;
 	int				state;
 	t_fork			**forks;
 	pthread_t		thread;
 	struct s_table	*table;
-	t_last_meal		last_meal;
+	time_t			last_meal;
 	void			*(*routine)(void *arg);
 	int				meals_count;
 	int				current_meal;
-	t_mutex			current_meal_mutex;
 	time_t			time_to_die;
 	time_t			time_to_eat;
 	time_t			time_to_sleep;
@@ -69,8 +63,6 @@ void	serve_table(t_table *table, char **args);
 void	clean_table(t_table *table);
 void	set_times(t_philo *philo, time_t time_to_die, time_t time_to_eat,
 			time_t time_to_sleep);
-void	set_last_meal_time(t_last_meal *last_meal, time_t time);
-time_t	get_last_meal_time(t_last_meal last_meal);
 void	change_state(t_philo *philo, int state);
 void	print_state(t_philo *philo, char *str);
 void	*monitoring(void *arg);

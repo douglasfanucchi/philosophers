@@ -34,13 +34,8 @@ char	some_philo_should_eat(t_table *table)
 	while (i < table->philo_count)
 	{
 		philo = table->philosophers[i];
-		pthread_mutex_lock(&philo->current_meal_mutex);
 		if (philo->current_meal != philo->meals_count)
-		{
-			pthread_mutex_unlock(&philo->current_meal_mutex);
 			return (1);
-		}
-		pthread_mutex_unlock(&philo->current_meal_mutex);
 		i++;
 	}
 	return (0);
@@ -50,7 +45,6 @@ void	*monitoring(void *arg)
 {
 	t_table	*table;
 	t_philo	*philo;
-	time_t	last_meal;
 	size_t	i;
 
 	table = arg;
@@ -60,14 +54,12 @@ void	*monitoring(void *arg)
 		while (++i < table->philo_count)
 		{
 			philo = table->philosophers[i];
-			last_meal = get_last_meal_time(philo->last_meal);
-			if (get_time(*table) > last_meal + philo->time_to_die)
+			if (get_time(*table) > philo->last_meal + philo->time_to_die)
 			{
 				dinner_is_over(philo, table);
 				return (NULL);
 			}
 		}
-		usleep(1000);
 	}
 	return (NULL);
 }
