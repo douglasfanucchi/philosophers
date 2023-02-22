@@ -33,8 +33,10 @@ static void	*routine(void *arg)
 	{
 		if (philo->state == EATING)
 		{
-			change_state(philo, SLEEPING);
+			pthread_mutex_lock(&philo->current_meal_mutex);
 			philo->current_meal += 1;
+			pthread_mutex_unlock(&philo->current_meal_mutex);
+			change_state(philo, SLEEPING);
 		}
 		else if (philo->state == SLEEPING)
 			change_state(philo, THINKING);

@@ -19,7 +19,10 @@ static void	print_has_taken_fork(t_philo *philo)
 
 void	print_state(t_philo *philo, char *str)
 {
-	printf("%ld %d %s\n", get_time(*philo->table), philo->pos, str);
+	pthread_mutex_lock(&philo->table->is_over_mutex);
+	if (!philo->table->is_over)
+		printf("%ld %d %s\n", get_time(*philo->table), philo->pos, str);
+	pthread_mutex_unlock(&philo->table->is_over_mutex);
 }
 
 void	change_state(t_philo *philo, int state)
