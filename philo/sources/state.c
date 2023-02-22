@@ -46,5 +46,5 @@ void	change_state(t_philo *philo, int state)
 		return ;
 	}
 	philo->state = THINKING;
-	print_state(philo, "is thiking");
+	print_state(philo, "is thinking");
 }
