@@ -27,6 +27,8 @@ void	print_state(t_philo *philo, char *str)
 
 void	change_state(t_philo *philo, int state)
 {
+	if (philo->table->is_over)
+		return ;
 	if (state == EATING)
 	{
 		pthread_mutex_lock(philo->forks[0]);

@@ -28,6 +28,15 @@ static void	*routine(void *arg)
 	initial_state(philo);
 	while (philo->current_meal != philo->meals_count)
 	{
+		if (philo->table->is_over)
+		{
+			if (philo->state == EATING)
+			{
+				pthread_mutex_unlock(philo->forks[0]);
+				pthread_mutex_unlock(philo->forks[1]);
+			}
+			return (NULL);
+		}
 		if (philo->state == EATING)
 		{
 			philo->current_meal += 1;

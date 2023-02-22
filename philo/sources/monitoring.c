@@ -14,14 +14,9 @@
 
 static void	dinner_is_over(t_philo *philo, t_table *table)
 {
-	size_t	i;
-
-	i = 0;
 	pthread_mutex_lock(&table->is_over_mutex);
 	printf("%ld %d died\n", get_time(*table), philo->pos);
 	table->is_over = 1;
-	while (i < table->philo_count)
-		pthread_detach(table->philosophers[i++]->thread);
 	pthread_mutex_unlock(&table->is_over_mutex);
 }
 
