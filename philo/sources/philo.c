@@ -12,12 +12,36 @@
 
 #include <philosophers.h>
 
+static void	initial_state(t_philo *philo)
+{
+	set_last_meal_time(&philo->last_meal, get_time(*philo->table));
+	if (philo->pos % 2 == 0)
+	{
+		change_state(philo, THINKING);
+		return ;
+	}
+	change_state(philo, EATING);
+}
+
 static void	*routine(void *arg)
 {
 	t_philo	*philo;
 
 	philo = arg;
-	return (philo);
+	initial_state(philo);
+	while (philo->current_meal != philo->meals_count)
+	{
+		if (philo->state == EATING)
+		{
+			change_state(philo, SLEEPING);
+			philo->current_meal += 1;
+		}
+		else if (philo->state == SLEEPING)
+			change_state(philo, THINKING);
+		else
+			change_state(philo, EATING);
+	}
+	return (NULL);
 }
 
 void	delete_philo(t_philo *philo)

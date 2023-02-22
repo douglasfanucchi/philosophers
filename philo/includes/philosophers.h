@@ -65,5 +65,9 @@ void	serve_table(t_table *table, char **args);
 void	clean_table(t_table *table);
 void	set_times(t_philo *philo, time_t time_to_die, time_t time_to_eat,
 			time_t time_to_sleep);
+void	set_last_meal_time(t_last_meal *last_meal, time_t time);
+time_t	get_last_meal_time(t_last_meal last_meal);
+void	change_state(t_philo *philo, int state);
+void	print_state(t_philo *philo, char *str);
 
 #endif

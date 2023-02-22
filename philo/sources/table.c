@@ -66,6 +66,7 @@ void	serve_table(t_table *table, char **args)
 	while (i < table->philo_count)
 	{
 		table->philosophers[i] = new_philo(i + 1, prev_fork, table->forks[i]);
+		table->philosophers[i]->table = table;
 		if (args[4])
 			table->philosophers[i]->meals_count = ft_atoi(args[4]);
 		set_times(table->philosophers[i], time_die, time_eat, time_sleep);
