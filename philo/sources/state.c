@@ -39,12 +39,12 @@ void	change_state(t_philo *philo, int state)
 		philo->state = EATING;
 		print_state(philo, "is eating");
 		usleep(to_microsec(philo->time_to_eat));
+		pthread_mutex_unlock(philo->forks[0]);
+		pthread_mutex_unlock(philo->forks[1]);
 		return ;
 	}
 	if (state == SLEEPING)
 	{
-		pthread_mutex_unlock(philo->forks[0]);
-		pthread_mutex_unlock(philo->forks[1]);
 		print_state(philo, "is sleeping");
 		philo->state = SLEEPING;
 		usleep(to_microsec(philo->time_to_sleep));
