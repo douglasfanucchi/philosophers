@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   states.c                                           :+:      :+:    :+:   */
+/*   state.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfanucch <dfanucch@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 22:03:39 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/21 22:03:39 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/03/01 15:59:53 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philosophers.h>
 
-static void	print_has_taken_fork(t_philo *philo)
+void	print_has_taken_fork(t_philo *philo)
 {
 	print_state(philo, "has taken a fork");
 }

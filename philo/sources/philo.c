@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfanucch <dfanucch@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:47:44 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/19 11:47:45 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/03/01 16:00:15 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@ static void	*routine(void *arg)
 
 	philo = arg;
 	philo->last_meal = get_time(*philo->table);
+	if (philo->table->philo_count == 1)
+	{
+		print_has_taken_fork(philo);
+		usleep(to_microsec(philo->time_to_die));
+		philo_has_died(philo, philo->table);
+	}
 	if (philo->pos % 2 == 0)
 		usleep(to_microsec(philo->time_to_eat));
 	while (!is_dinner_over(philo->table))

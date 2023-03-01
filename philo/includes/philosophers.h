@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfanucch <dfanucch@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:40:19 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/19 10:40:19 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/03/01 15:59:56 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,7 @@ void	change_state(t_philo *philo, int state);
 void	print_state(t_philo *philo, char *str);
 void	*monitoring(void *arg);
 char	is_dinner_over(t_table *table);
+void	philo_has_died(t_philo *philo, t_table *table);
+void	print_has_taken_fork(t_philo *philo);
 
 #endif

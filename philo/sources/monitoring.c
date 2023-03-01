@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfanucch <dfanucch@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 23:35:07 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/21 23:35:07 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/03/01 16:01:08 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philosophers.h>
 
-static void	philo_has_died(t_philo *philo, t_table *table)
+void	philo_has_died(t_philo *philo, t_table *table)
 {
 	pthread_mutex_lock(&table->is_over_mutex);
 	printf("%ld %d died\n", get_time(*table), philo->pos);
@@ -50,6 +50,8 @@ void	*monitoring(void *arg)
 	size_t	i;
 
 	table = arg;
+	if (table->philo_count == 1)
+		return (NULL);
 	while (some_philo_should_eat(table))
 	{
 		i = -1;
