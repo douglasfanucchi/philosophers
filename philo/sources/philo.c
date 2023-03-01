@@ -28,7 +28,7 @@ static void	*routine(void *arg)
 	initial_state(philo);
 	while (philo->current_meal != philo->meals_count)
 	{
-		if (philo->table->is_over)
+		if (is_dinner_over(philo->table))
 		{
 			if (philo->state == EATING)
 			{

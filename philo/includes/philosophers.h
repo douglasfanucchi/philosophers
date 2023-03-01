@@ -39,6 +39,7 @@ typedef struct s_philo {
 	void			*(*routine)(void *arg);
 	int				meals_count;
 	int				current_meal;
+	t_mutex			current_meal_mutex;
 	time_t			time_to_die;
 	time_t			time_to_eat;
 	time_t			time_to_sleep;
@@ -66,5 +67,6 @@ void	set_times(t_philo *philo, time_t time_to_die, time_t time_to_eat,
 void	change_state(t_philo *philo, int state);
 void	print_state(t_philo *philo, char *str);
 void	*monitoring(void *arg);
+char	is_dinner_over(t_table *table);
 
 #endif

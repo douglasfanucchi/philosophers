@@ -82,3 +82,13 @@ void	serve_table(t_table *table, char **args)
 	table->forks = get_forks(table->philo_count);
 	create_philosophers(table, args);
 }
+
+char	is_dinner_over(t_table *table)
+{
+	char	is_over;
+
+	pthread_mutex_lock(&table->is_over_mutex);
+	is_over = table->is_over;
+	pthread_mutex_unlock(&table->is_over_mutex);
+	return (is_over);
+}
