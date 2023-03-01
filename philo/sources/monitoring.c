@@ -12,10 +12,17 @@
 
 #include <philosophers.h>
 
-static void	dinner_is_over(t_philo *philo, t_table *table)
+static void	philo_has_died(t_philo *philo, t_table *table)
 {
 	pthread_mutex_lock(&table->is_over_mutex);
 	printf("%ld %d died\n", get_time(*table), philo->pos);
+	table->is_over = 1;
+	pthread_mutex_unlock(&table->is_over_mutex);
+}
+
+static void	dinner_is_over(t_table *table)
+{
+	pthread_mutex_lock(&table->is_over_mutex);
 	table->is_over = 1;
 	pthread_mutex_unlock(&table->is_over_mutex);
 }
@@ -51,10 +58,11 @@ void	*monitoring(void *arg)
 			philo = table->philosophers[i];
 			if (get_time(*table) > philo->last_meal + philo->time_to_die)
 			{
-				dinner_is_over(philo, table);
+				philo_has_died(philo, table);
 				return (NULL);
 			}
 		}
 	}
+	dinner_is_over(table);
 	return (NULL);
 }
