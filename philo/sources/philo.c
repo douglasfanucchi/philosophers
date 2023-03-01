@@ -12,40 +12,24 @@
 
 #include <philosophers.h>
 
-static void	initial_state(t_philo *philo)
-{
-	philo->last_meal = get_time(*philo->table);
-	if (philo->pos % 2 == 0)
-		usleep(to_microsec(philo->time_to_eat));
-	change_state(philo, EATING);
-}
-
 static void	*routine(void *arg)
 {
 	t_philo	*philo;
 
 	philo = arg;
-	initial_state(philo);
-	while (philo->current_meal != philo->meals_count)
+	philo->last_meal = get_time(*philo->table);
+	if (philo->pos % 2 == 0)
+		usleep(to_microsec(philo->time_to_eat));
+	while (!is_dinner_over(philo->table))
 	{
-		if (is_dinner_over(philo->table))
-		{
-			if (philo->state == EATING)
-			{
-				pthread_mutex_unlock(philo->forks[0]);
-				pthread_mutex_unlock(philo->forks[1]);
-			}
+		change_state(philo, EATING);
+		pthread_mutex_lock(&philo->current_meal_mutex);
+		philo->current_meal += 1;
+		pthread_mutex_unlock(&philo->current_meal_mutex);
+		if (philo->current_meal == philo->meals_count)
 			return (NULL);
-		}
-		if (philo->state == EATING)
-		{
-			philo->current_meal += 1;
-			change_state(philo, SLEEPING);
-		}
-		else if (philo->state == SLEEPING)
-			change_state(philo, THINKING);
-		else
-			change_state(philo, EATING);
+		change_state(philo, SLEEPING);
+		change_state(philo, THINKING);
 	}
 	return (NULL);
 }
