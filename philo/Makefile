@@ -1,6 +1,6 @@
 NAME=philo
 CC=cc
-FLAGS=-Wall -Wextra -Werror
+FLAGS=-Wall -Wextra -Werror -g3
 SRC:=philosophers.c utils/time.c utils/atoi.c philo.c table.c state.c monitoring.c
 SRC:=$(addprefix sources/, $(SRC))
 OBJS=$(SRC:.c=.o)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   table.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfanucch <dfanucch@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:23:58 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/21 20:23:58 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/03/01 19:51:56 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	create_philosophers(t_table *table, char **args)
 	{
 		table->philosophers[i] = new_philo(i + 1, prev_fork, table->forks[i]);
 		table->philosophers[i]->table = table;
+		table->philosophers[i]->start = table->started_time;
 		if (args[4])
 			table->philosophers[i]->meals_count = ft_atoi(args[4]);
 		set_times(table->philosophers[i], time_die, time_eat, time_sleep);

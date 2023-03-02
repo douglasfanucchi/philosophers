@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 22:03:39 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/03/01 15:59:53 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/03/01 19:52:41 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	print_state(t_philo *philo, char *str)
 {
 	pthread_mutex_lock(&philo->table->is_over_mutex);
 	if (!philo->table->is_over)
-		printf("%ld %d %s\n", get_time(*philo->table), philo->pos, str);
+		printf("%ld %d %s\n", get_time(philo->start), philo->pos, str);
 	pthread_mutex_unlock(&philo->table->is_over_mutex);
 }
 
 void	change_state(t_philo *philo, int state)
 {
-	if (philo->table->is_over)
+	if (is_dinner_over(philo->table))
 		return ;
 	if (state == EATING)
 	{
@@ -35,7 +35,9 @@ void	change_state(t_philo *philo, int state)
 		print_has_taken_fork(philo);
 		pthread_mutex_lock(philo->forks[1]);
 		print_has_taken_fork(philo);
-		philo->last_meal = get_time(*philo->table);
+		pthread_mutex_lock(&philo->last_meal_mutex);
+		philo->last_meal = get_time(philo->start);
+		pthread_mutex_unlock(&philo->last_meal_mutex);
 		philo->state = EATING;
 		print_state(philo, "is eating");
 		usleep(to_microsec(philo->time_to_eat));

@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:47:44 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/03/01 16:00:15 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/03/01 19:52:26 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ static void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = arg;
-	philo->last_meal = get_time(*philo->table);
+	pthread_mutex_lock(&philo->last_meal_mutex);
+	philo->last_meal = get_time(philo->start);
+	pthread_mutex_unlock(&philo->last_meal_mutex);
 	if (philo->table->philo_count == 1)
 	{
 		print_has_taken_fork(philo);
@@ -42,6 +44,8 @@ static void	*routine(void *arg)
 
 void	delete_philo(t_philo *philo)
 {
+	pthread_mutex_destroy(&philo->last_meal_mutex);
+	pthread_mutex_destroy(&philo->current_meal_mutex);
 	free(philo->forks);
 	free(philo);
 }
@@ -68,5 +72,7 @@ t_philo	*new_philo(int pos, t_fork *left_fork, t_fork *right_fork)
 	philo->current_meal = 0;
 	philo->routine = routine;
 	philo->last_meal = 0;
+	pthread_mutex_init(&philo->last_meal_mutex, NULL);
+	pthread_mutex_init(&philo->current_meal_mutex, NULL);
 	return (philo);
 }

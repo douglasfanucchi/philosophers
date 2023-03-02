@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:40:19 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/03/01 15:59:56 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/03/01 19:51:31 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct s_philo {
 	pthread_t		thread;
 	struct s_table	*table;
 	time_t			last_meal;
+	time_t			start;
+	t_mutex			last_meal_mutex;
 	void			*(*routine)(void *arg);
 	int				meals_count;
 	int				current_meal;
@@ -56,7 +58,7 @@ typedef struct s_table {
 
 time_t	get_timestamp(void);
 time_t	to_microsec(time_t ms);
-time_t	get_time(t_table table);
+time_t	get_time(time_t started_time);
 long	ft_atoi(const char *nptr);
 void	delete_philo(t_philo *philo);
 t_philo	*new_philo(int pos, t_fork *left_fork, t_fork *right_fork);

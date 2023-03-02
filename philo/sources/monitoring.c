@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 23:35:07 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/03/01 16:01:08 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/03/01 19:57:00 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	philo_has_died(t_philo *philo, t_table *table)
 {
 	pthread_mutex_lock(&table->is_over_mutex);
-	printf("%ld %d died\n", get_time(*table), philo->pos);
+	printf("%ld %d died\n", get_time(philo->start), philo->pos);
 	table->is_over = 1;
 	pthread_mutex_unlock(&table->is_over_mutex);
 }
@@ -36,8 +36,13 @@ char	some_philo_should_eat(t_table *table)
 	while (i < table->philo_count)
 	{
 		philo = table->philosophers[i];
+		pthread_mutex_lock(&philo->current_meal_mutex);
 		if (philo->current_meal != philo->meals_count)
+		{
+			pthread_mutex_unlock(&philo->current_meal_mutex);
 			return (1);
+		}
+		pthread_mutex_unlock(&philo->current_meal_mutex);
 		i++;
 	}
 	return (0);
@@ -58,12 +63,16 @@ void	*monitoring(void *arg)
 		while (++i < table->philo_count)
 		{
 			philo = table->philosophers[i];
-			if (get_time(*table) > philo->last_meal + philo->time_to_die)
+			pthread_mutex_lock(&philo->last_meal_mutex);
+			if (get_time(philo->start) > philo->last_meal + philo->time_to_die)
 			{
+				pthread_mutex_unlock(&philo->last_meal_mutex);
 				philo_has_died(philo, table);
 				return (NULL);
 			}
+			pthread_mutex_unlock(&philo->last_meal_mutex);
 		}
+		usleep(to_microsec(1));
 	}
 	dinner_is_over(table);
 	return (NULL);
