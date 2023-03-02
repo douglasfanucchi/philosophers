@@ -40,7 +40,9 @@ static void	create_philosophers(t_table *table, char **args)
 	time_die = ft_atoi(args[1]);
 	time_eat = ft_atoi(args[2]);
 	time_sleep = ft_atoi(args[3]);
-	prev_fork = table->forks[table->philo_count - 1];
+	prev_fork = NULL;
+	if (table->philo_count > 1)
+		prev_fork = table->forks[table->philo_count - 1];
 	i = 0;
 	while (i < table->philo_count)
 	{

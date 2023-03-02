@@ -31,10 +31,18 @@ void	change_state(t_philo *philo, int state)
 		return ;
 	if (state == EATING)
 	{
-		pthread_mutex_lock(philo->forks[0]);
-		print_has_taken_fork(philo);
-		pthread_mutex_lock(philo->forks[1]);
-		print_has_taken_fork(philo);
+		if ((long unsigned)philo->pos == philo->table->philo_count)
+		{
+			pthread_mutex_lock(philo->forks[1]);
+			print_has_taken_fork(philo);
+			pthread_mutex_lock(philo->forks[0]);
+			print_has_taken_fork(philo);
+		} else {
+			pthread_mutex_lock(philo->forks[0]);
+			print_has_taken_fork(philo);
+			pthread_mutex_lock(philo->forks[1]);
+			print_has_taken_fork(philo);
+		}
 		pthread_mutex_lock(&philo->last_meal_mutex);
 		philo->last_meal = get_time(philo->start);
 		pthread_mutex_unlock(&philo->last_meal_mutex);
