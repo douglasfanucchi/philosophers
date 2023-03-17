@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 23:35:07 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/03/01 19:57:00 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/03/17 20:25:50 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	*monitoring(void *arg)
 			}
 			pthread_mutex_unlock(&philo->last_meal_mutex);
 		}
-		usleep(to_microsec(1));
+		usleep(1);
 	}
 	dinner_is_over(table);
 	return (NULL);

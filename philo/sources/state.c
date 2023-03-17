@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 22:03:39 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/03/01 19:52:41 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/03/17 20:27:55 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	change_state(t_philo *philo, int state)
 		return ;
 	if (state == EATING)
 	{
-		if ((long unsigned)philo->pos == philo->table->philo_count)
+		if (philo->pos % 2 == 0)
 		{
 			pthread_mutex_lock(philo->forks[1]);
 			print_has_taken_fork(philo);

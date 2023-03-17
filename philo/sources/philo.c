@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:47:44 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/03/01 19:52:26 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/03/17 20:26:09 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	*routine(void *arg)
 			return (NULL);
 		change_state(philo, SLEEPING);
 		change_state(philo, THINKING);
+		usleep(1);
 	}
 	return (NULL);
 }
