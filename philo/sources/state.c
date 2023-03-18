@@ -25,24 +25,31 @@ void	print_state(t_philo *philo, char *str)
 	pthread_mutex_unlock(&philo->table->is_over_mutex);
 }
 
+void	get_forks(t_philo *philo)
+{
+	if ((long unsigned)philo->pos == philo->table->philo_count)
+	{
+		pthread_mutex_lock(philo->forks[1]);
+		print_has_taken_fork(philo);
+		pthread_mutex_lock(philo->forks[0]);
+		print_has_taken_fork(philo);
+	}
+	else
+	{
+		pthread_mutex_lock(philo->forks[0]);
+		print_has_taken_fork(philo);
+		pthread_mutex_lock(philo->forks[1]);
+		print_has_taken_fork(philo);
+	}
+}
+
 void	change_state(t_philo *philo, int state)
 {
 	if (is_dinner_over(philo->table))
 		return ;
 	if (state == EATING)
 	{
-		if ((long unsigned)philo->pos == philo->table->philo_count)
-		{
-			pthread_mutex_lock(philo->forks[1]);
-			print_has_taken_fork(philo);
-			pthread_mutex_lock(philo->forks[0]);
-			print_has_taken_fork(philo);
-		} else {
-			pthread_mutex_lock(philo->forks[0]);
-			print_has_taken_fork(philo);
-			pthread_mutex_lock(philo->forks[1]);
-			print_has_taken_fork(philo);
-		}
+		get_forks(philo);
 		pthread_mutex_lock(&philo->last_meal_mutex);
 		philo->last_meal = get_time(philo->start);
 		pthread_mutex_unlock(&philo->last_meal_mutex);
@@ -62,4 +69,5 @@ void	change_state(t_philo *philo, int state)
 	}
 	philo->state = THINKING;
 	print_state(philo, "is thinking");
+	usleep(500);
 }

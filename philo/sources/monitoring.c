@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 23:35:07 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/03/01 19:57:00 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/03/17 20:08:46 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ void	*monitoring(void *arg)
 	size_t	i;
 
 	table = arg;
-	if (table->philo_count == 1)
-		return (NULL);
 	while (some_philo_should_eat(table))
 	{
 		i = -1;
@@ -72,7 +70,7 @@ void	*monitoring(void *arg)
 			}
 			pthread_mutex_unlock(&philo->last_meal_mutex);
 		}
-		usleep(to_microsec(1));
+		usleep(500);
 	}
 	dinner_is_over(table);
 	return (NULL);

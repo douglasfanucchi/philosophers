@@ -32,6 +32,20 @@ static char	is_valid(int argc, char **args)
 	return (1);
 }
 
+void	create_philo_threads(t_table *table)
+{
+	size_t	i;
+	t_philo	*philo;
+
+	i = 0;
+	while (i < table->philo_count)
+	{
+		philo = table->philosophers[i];
+		pthread_create(&philo->thread, NULL, philo->routine, philo);
+		i++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_table		table;
@@ -45,15 +59,12 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	serve_table(&table, argv + 1);
-	i = 0;
-	while (i < table.philo_count)
+	create_philo_threads(&table);
+	if (table.philo_count > 1)
 	{
-		philo = table.philosophers[i];
-		pthread_create(&philo->thread, NULL, philo->routine, philo);
-		i++;
+		pthread_create(&monitoring_thread, NULL, monitoring, &table);
+		pthread_join(monitoring_thread, NULL);
 	}
-	pthread_create(&monitoring_thread, NULL, monitoring, &table);
-	pthread_join(monitoring_thread, NULL);
 	i = 0;
 	while (i < table.philo_count)
 	{

@@ -12,6 +12,13 @@
 
 #include <philosophers.h>
 
+void	die_alone(t_philo *philo)
+{
+	print_has_taken_fork(philo);
+	usleep(to_microsec(philo->time_to_die));
+	philo_has_died(philo, philo->table);
+}
+
 static void	*routine(void *arg)
 {
 	t_philo	*philo;
@@ -21,11 +28,7 @@ static void	*routine(void *arg)
 	philo->last_meal = get_time(philo->start);
 	pthread_mutex_unlock(&philo->last_meal_mutex);
 	if (philo->table->philo_count == 1)
-	{
-		print_has_taken_fork(philo);
-		usleep(to_microsec(philo->time_to_die));
-		philo_has_died(philo, philo->table);
-	}
+		die_alone(philo);
 	if (philo->pos % 2 == 0)
 		usleep(to_microsec(philo->time_to_eat));
 	while (!is_dinner_over(philo->table))
